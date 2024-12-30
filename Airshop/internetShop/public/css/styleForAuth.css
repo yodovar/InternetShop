@@ -1,0 +1,233 @@
+/* Стили для страницы */
+body {
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle, #000428, #004e92); /* Космический фон */
+    background-size: 200% 200%;
+    animation: spaceAnimation 15s ease infinite; /* Анимация космического фона */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    color: #fff;
+}
+
+/* Анимация для фона */
+@keyframes spaceAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Контейнер с формой */
+.container {
+    max-width: 480px;
+    width: 100%;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.6); /* Полупрозрачный черный фон */
+    border-radius: 20px;
+    backdrop-filter: blur(15px); /* Размытие фона */
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Эффект увеличения при наведении */
+.container:hover {
+    transform: scale(1.05);
+}
+
+/* Заголовок */
+h1 {
+    text-align: center;
+    font-size: 40px;
+    color: #FFD700; /* Золотой цвет */
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* Поля ввода */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Мета-информация в виде метки */
+.form-group label {
+    display: block;
+    color: #FFD700; /* Золотой цвет */
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+/* Инпуты */
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #FFD700; /* Золотистая полоса */
+    border-radius: 8px;
+    font-size: 16px;
+    color: #fff;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Инпут при фокусе (цвет меняется на зеленый) */
+.form-group input:focus {
+    border-color: #32CD32; /* Зеленая полоса */
+    background-color: rgba(50, 205, 50, 0.1);
+    outline: none;
+    box-shadow: 0 0 20px rgba(50, 205, 50, 0.6);
+}
+
+/* Кнопка отправки */
+.form-group button {
+    width: 100%;
+    padding: 15px;
+    background-color: #32CD32; /* Зеленый цвет */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(50, 205, 50, 0.8);
+}
+
+/* Ховер эффект для кнопки */
+.form-group button:hover {
+    background-color: #228B22; /* Темно-зеленый */
+    transform: translateY(-5px);
+}
+
+/* Салют при нажатии на кнопку */
+.form-group button:active {
+    animation: fireworks 1s ease-out;
+}
+
+/* Анимация для фона с салютами */
+@keyframes fireworks {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* Ссылка на Войти (сделаем как кнопку) */
+.form-group a {
+    display: inline-block;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    background-color: #FFD700; /* Золотая кнопка */
+    color: #fff;
+    border-radius: 8px;
+    font-size: 18px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Ховер эффект для ссылки на Войти */
+.form-group a:hover {
+    background-color: #FF6347; /* Ярко-красная кнопка при ховере */
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 99, 71, 0.8);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .form-group input,
+    .form-group button,
+    .form-group a {
+        font-size: 14px;
+    }
+}
+
+/* Стили для инпутов логина, пароля и подтверждения пароля */
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="password"]:focus {
+    border: 2px solid #FFD700; /* Золотистая полоса для всех инпутов */
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus {
+    border-color: #32CD32; /* Зеленая полоса для инпутов при фокусе */
+    box-shadow: 0 0 20px rgba(50, 205, 50, 0.6);
+    background-color: rgba(50, 205, 50, 0.1);
+}
+
+/* Подтверждение пароля */
+.form-group input[type="password"]:focus {
+    border-color: #32CD32; /* Зеленая полоса для инпута пароля */
+}
+
+/* Стиль для поля подтверждения пароля */
+.form-group input[type="password"]:focus {
+    border-color: #32CD32; /* Зеленый цвет */
+}
+
+/* Стили для футера */
+.footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #FFD700; /* Золотой цвет */
+    color: #fff;
+    border-radius: 8px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Ховер эффект для ссылки в футере */
+.footer a:hover {
+    background-color: #1E90FF; /* Синий цвет */
+    transform: translateY(-3px); /* Легкое поднятие */
+    box-shadow: 0 0 20px rgba(30, 144, 255, 0.8); /* Яркий синий цвет для тени */
+}
+
+/* Ховер эффект для ссылок с несколькими цветами */
+.footer a:focus,
+.footer a:hover {
+    background: linear-gradient(90deg, #1E90FF, #00BFFF, #87CEFA); /* Плавный переход между синим и голубым */
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(30, 144, 255, 0.8);
+}
+
+
+p{
+    color: red;
+}

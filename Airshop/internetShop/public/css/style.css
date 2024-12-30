@@ -1,0 +1,349 @@
+/* Основные стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: chocolate;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Hero секция с анимацией фона */
+.hero-section {
+    position: relative;
+    background: url('/Airshop/internetShop/public/images/IMG_0683.JPG') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    overflow: hidden;
+    animation: enlargeAndDarken 5s ease-in-out forwards;
+}
+
+/* Темный overlay для затемнения */
+.hero-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0); /* Начальное состояние */
+    z-index: 0;
+    animation: darkenOverlay 5s ease-in-out forwards;
+}
+
+/* Анимация увеличения и затемнения фона */
+@keyframes enlargeAndDarken {
+    0% {
+        background-size: 200%; /* Начальный размер фона */
+    }
+    50% {
+        background-size: 60%; /* Увеличиваем фон */
+    }
+    100% {
+        background-size: 120%; /* Фон возвращается к нормальному размеру */
+    }
+}
+
+/* Анимация затемнения overlay */
+@keyframes darkenOverlay {
+    0% {
+        background: rgba(0, 0, 0, 0); /* Без затемнения */
+    }
+    50% {
+        background: rgba(0, 0, 0, 0.4); /* Полупрозрачное затемнение */
+    }
+    100% {
+        background: rgba(0, 0, 0, 0.6); /* Полностью затемненный фон */
+    }
+}
+
+/* Заголовки и описание */
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    z-index: 1; /* Текст будет поверх фона */
+    color: white; /* Всегда белый цвет текста */
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-weight: 400;
+    z-index: 1;
+    color: white; /* Всегда белый цвет текста */
+}
+
+/* Кнопки */
+.buttons {
+    display: flex;
+    gap: 20px;
+    z-index: 1;
+}
+
+.btn {
+    padding: 15px 30px;
+    background-color: #fff;
+    color: #333; /* Цвет текста на светлом фоне кнопки */
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background-color: #ff5f6d;
+    color: white; /* Цвет текста при наведении */
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Добавил стиль для текста внутри кнопок, чтобы он всегда был видим */
+.btn:focus,
+.btn:active {
+    color: white;
+}
+
+/* Фиксированный футер */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+footer:hover {
+    background-color: #1a2426;
+}
+
+footer a {
+    color: #ff5f6d;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Для HEADER */
+/* Общие стили для header */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #2d3436;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar:hover {
+    background-color: #1a2426;
+}
+
+/* Логотип */
+.logo h1 {
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.logo h1:hover {
+    transform: scale(1.1);
+}
+
+/* Навигационные ссылки */
+.nav-links ul {
+    list-style-type: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    color: #fff; /* Всегда белый цвет текста */
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    background-color: #e74c3c;
+    left: 50%;
+    bottom: -5px;
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.nav-links a:hover {
+    color: #e74c3c;
+    transform: translateY(-5px);
+}
+
+/* Анимации для мобильного меню */
+.menu-icon {
+    display: none;
+    cursor: pointer;
+}
+
+.menu-icon i {
+    font-size: 2rem;
+    color: #fff;
+    transition: transform 0.3s ease-in-out;
+}
+
+.menu-icon:hover i {
+    transform: rotate(90deg);
+}
+
+/* Медиа-запросы для мобильных устройств */
+@media screen and (max-width: 768px) {
+    .nav-links ul {
+        display: none;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+}
+
+/* FOOTER */
+/* Убедитесь, что html и body растягиваются на всю высоту */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Основной контейнер для контента */
+main {
+    flex: 1;
+}
+
+/* Стили для футера */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0; /* Уменьшаем высоту футера */
+    width: 100%;
+    font-size: 14px; /* Уменьшаем шрифт для футера */
+    position: relative;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-info, .footer-links, .footer-contact, .footer-social {
+    flex: 1;
+    padding: 5px 10px;
+    margin: 0 20px;
+}
+
+.footer-info h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.footer-info p {
+    margin: 5px 0;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin: 5px 0;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-contact a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.footer-contact span {
+    font-size: 16px;
+}
+
+/* Социальные иконки */
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icon {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+/* Уменьшаем размер шрифта */
+.footer h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.footer p, .footer a {
+    font-size: 14px;
+}
+
