@@ -1,89 +1,111 @@
+<?php
+session_start();
+
+// Проверяем, существует ли корзина в сессии, если нет, то создаем её
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+// Функция для добавления товара в корзину
+if (isset($_GET['id'])) {
+    $productId = (int) $_GET['id'];
+
+    // Проверяем, есть ли товар в корзине, если нет - добавляем
+    if (!in_array($productId, $_SESSION['cart'])) {
+        $_SESSION['cart'][] = $productId;  // Добавляем товар в корзину
+    }
+}
+
+// Подключение к базе данных
+class Database {
+    private static $instance = null;
+    private $connection;
+
+    private function __construct() {
+        $this->connection = new PDO('mysql:host=localhost;dbname=Airshop', 'root', 'root');
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+
+    public static function getConnection() {
+        if (self::$instance === null) {
+            self::$instance = new Database();
+        }
+        return self::$instance->connection;
+    }
+}
+
+// Получаем информацию о товарах, которые в корзине
+class CartManager {
+    public function getCartProducts($cart) {
+        $db = Database::getConnection();
+        $placeholders = implode(',', array_fill(0, count($cart), '?'));
+        $stmt = $db->prepare("SELECT * FROM products WHERE id IN ($placeholders)");
+        $stmt->execute($cart);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+
+$cartManager = new CartManager();
+$cartProducts = $cartManager->getCartProducts($_SESSION['cart']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - AirShop</title>
-    <link rel="stylesheet" href="/Airshop/internetShop/public/css/homeStyle.css"> <!-- Подключаем стили с главной -->
-<!-- Дополнительные стили для корзины -->
+    <title>Shopping Cart - AirShop</title>
+    <link rel="stylesheet" href="/Airshop/internetShop/public/css/cartStyle.css">
 </head>
 <body>
+
+<div id="form-overlay" style="display: none;"></div>
+
 <main>
-    <h1>Your Basket</h1>
-    <!-- Секция с товарами -->
-    <section id="cart-items" class="product-gallery"></section>
+    <!-- Страница корзины -->
+    <section class="cart-section" id="cart-section">
+        <h1>Your Shopping Cart</h1>
+        
+        <?php if (count($cartProducts) > 0): ?>
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Store</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Delete</th>
+                        <th>Buy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($cartProducts as $product): ?>
+                        <tr>
+                            <td>
+                                <img src="<?= $product['photo'] ?>" alt="<?= $product['category'] ?>" width="100">
+                                <p><?= $product['Store'] ?></p>
+                            </td>
+                            <td><?= $product['Store'] ?></td>
+                            <td><?= $product['category'] ?></td>
+                            <td>$<?= $product['price'] ?></td>
+                            <td>
+                                <a href="/Airshop/InternetShop/cart/remove?id=<?= $product['id'] ?>" class="remove-item">Remove</a>
+                             </td>
+                             <td>
+                                <a href="/Airshop/InternetShop/cart/remove?id=<?= $product['id'] ?>" class="buy-item">Buy</a>
+                             </td>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 
-    <!-- Кнопки управления -->
-    <div class="cart-actions">
-        <button id="checkout-btn" class="btn">Buy All</button>
-    </div>
+            <a href="/Airshop/InternetShop/checkout" class="btn">Proceed to Checkout</a>
+        <?php else: ?>
+            <p>Your cart is empty.</p>
+        <?php endif; ?>
+    </section>
 </main>
-<style>
-    #checkout-btn{
-    display: inline-block;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    position: center;
-}
-</style>
-<script>
-    // Загрузка товаров в корзине
-    document.addEventListener("DOMContentLoaded", function () {
-        loadCart();
 
-        // Покупка всех товаров
-        document.getElementById('checkout-btn').addEventListener('click', function () {
-            if (confirm("Are you sure you want to buy all items?")) {
-                localStorage.removeItem('cart');
-                alert('Purchase successful!');
-                loadCart();
-            }
-        });
-    });
+<?php require ROOT . "/app/views/layouts/footer.php"; ?>
 
-    function loadCart() {
-        const cartItems = document.getElementById('cart-items');
-        cartItems.innerHTML = ''; // Очищаем текущий список
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        if (cart.length === 0) {
-            cartItems.innerHTML = '<p>Your cart is empty.</p>';
-        } else {
-            cart.forEach(item => {
-                const cartItem = document.createElement('div');
-                cartItem.classList.add('product-item'); // Используем тот же класс, что и на главной
-                cartItem.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
-                    <h3>${item.name}</h3>
-                    <p>${item.category}</p>
-                    <p class="product-price">$${parseFloat(item.price).toFixed(2)}</p>
-                    <button class="btn remove-item-btn" data-id="${item.id}">Remove</button>
-                     <button class="btn remove-item-btn" data-id="${item.id}">Buy</button>
-                `;
-                cartItems.appendChild(cartItem);
-            });
-
-            // Удаление товара из корзины
-            document.querySelectorAll('.remove-item-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    removeFromCart(this.getAttribute('data-id'));
-                    loadCart(); // Перезагрузка корзины
-                });
-            });
-        }
-    }
-
-    // Удаление товара из LocalStorage
-    function removeFromCart(id) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart = cart.filter(item => item.id != id); // Удаляем товар по ID
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }
-</script>
 </body>
 </html>

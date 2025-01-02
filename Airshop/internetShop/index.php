@@ -17,7 +17,7 @@ $router->run();
 </head>
 <body>
     <!-- Подключение header.php с использованием ROOT -->
-    <?php require ROOT . "/app/views/layouts/header.php"; ?>
+   
     
     <main class="content">
         <div class="hero-section">

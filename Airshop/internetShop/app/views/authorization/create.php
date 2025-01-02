@@ -5,10 +5,10 @@ if (isset($_GET['role'])) {
     // Проверяем, что это за роль, и устанавливаем соответствующую куку
     if ($role == 2) {
         // Устанавливаем куки для роли Селлера
-        setcookie('RoleID', 2, time() + 3600, '/'); // Кука будет жить 1 час
+        setcookie('RoleID', 2, time() + 36000, '/'); // Кука будет жить 1 час
     } elseif ($role == 1) {
         // Устанавливаем куки для роли Мерчанта
-        setcookie('RoleID', 1, time() + 3600, '/');
+        setcookie('RoleID', 1, time() + 36000, '/');
     }
 
     // После установки куки перенаправляем на нужную страницу
@@ -73,6 +73,12 @@ if (isset($_GET['error'])) {
         </form>
 
         <div class="footer">
+        <?php if ($_COOKIE['RoleID'] == "" || $_COOKIE['RoleID'] == 1): ?>
+
+            <p> если вы продавец<a href="create.php?role=2">Продавец</a></p>
+
+            <?php endif;?>
+
             <p>Уже есть аккаунт? <a href="enter.php">Войти</a></p>
         </div>
     </div>

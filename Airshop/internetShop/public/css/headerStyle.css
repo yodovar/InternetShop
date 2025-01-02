@@ -1,0 +1,70 @@
+/* Центрирование ссылок в середине экрана */
+.nav-links {
+    display: flex;
+    justify-content: center; /* Центрируем ссылки по горизонтали */
+    align-items: center;    /* Центрируем ссылки по вертикали */
+    height: 100vh;          /* Высота блока - весь экран */
+    position: fixed;        /* Фиксированное положение */
+    width: 100%;            /* Занимаем всю ширину */
+    top: 0;
+    left: 0;
+    z-index: 100;           /* Поверх всего */
+    background: rgba(255, 255, 255, 0.95); /* Полупрозрачный белый фон */
+    flex-direction: column; /* Ссылки в колонку */
+    gap: 2rem;              /* Расстояние между ссылками */
+    transform: translateY(-100%); /* Начальное состояние скрыто */
+    transition: transform 0.4s ease-in-out;
+}
+
+/* Когда меню активно (открыто), переводим на экран */
+.nav-links.active {
+    transform: translateY(0);
+}
+
+/* Для каждой ссылки */
+.nav-links ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 2rem; /* Разрыв между ссылками */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links ul li a {
+    font-size: 1.5rem;       /* Увеличенный шрифт */
+    font-weight: bold;       /* Жирный текст */
+    color: #333333;          /* Классический серый цвет */
+    text-transform: uppercase; /* Верхний регистр */
+    text-decoration: none;
+    padding: 0.5rem 1rem;    /* Отступы внутри ссылок */
+    border: 2px solid transparent; /* Прозрачная рамка (для эффекта) */
+    border-radius: 5px;      /* Легкие скругления */
+    transition: all 0.3s ease-in-out; /* Анимация всех эффектов */
+}
+
+/* Hover эффекты для ссылок */
+.nav-links ul li a:hover {
+    color: #007BFF; /* Синий текст */
+    background-color: rgba(0, 123, 255, 0.1); /* Легкий синий фон */
+    border: 2px solid #007BFF; /* Синяя рамка */
+    transform: scale(1.1); /* Увеличение ссылки */
+    box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.3); /* Тень */
+}
+
+/* Иконка меню */
+.menu-icon {
+    display: block;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: #333333;
+    cursor: pointer;
+    z-index: 110;
+    transition: color 0.3s ease-in-out;
+}
+
+.menu-icon:hover {
+    color: #007BFF;
+}

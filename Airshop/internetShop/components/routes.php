@@ -5,5 +5,6 @@ return [
     'home' => 'home/information',
     'product' => 'product/characteristic',
     'enter' => 'enter/join',
-    'create' => 'create/newaccount'
+    'create' => 'create/newaccount',
+    'profile' => 'profile/myProfile'
 ];

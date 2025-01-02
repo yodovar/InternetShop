@@ -9,7 +9,7 @@
 <body>
 <header class="navbar">
     <div class="logo">
-        <h1>ShopLogo</h1>
+        <h1>Airshop</h1>
     </div>
     <nav class="nav-links">
         <ul>
@@ -17,9 +17,20 @@
             <li><a href="product/index">Product</a></li>
             <li><a href="cart/index">Cart</a></li>
             <li><a href="about/index">About</a></li>
+            <?php if (isset($_COOKIE['RoleID']) && $_COOKIE['RoleID'] == 2): ?>
+
+            <li><a href="/Airshop/internetShop/profile/index">Profile</a></li>
+            
+            <?php endif; ?>
         </ul>
     </nav>
     <div class="menu-icon" id="menu-icon">
         <i class="fas fa-bars"></i>
     </div>
 </header>
+
+
+
+
+
+

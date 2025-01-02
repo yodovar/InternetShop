@@ -1,0 +1,102 @@
+/* Общие стили для страницы корзины */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Секция корзины */
+.cart-section {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Заголовок корзины */
+.cart-section h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Таблица корзины */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.cart-table th,
+.cart-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.cart-table td img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+/* Кнопки удаления и перехода на оформление */
+.remove-item {
+    color: #d9534f;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.remove-item:hover {
+    /* text-decoration: underline; */
+    border-radius: 5%;
+    color:#f4f4f4;
+    background-color: #d9534f;
+}
+
+.buy-item {
+    color: hsl(130, 64%, 58%);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.buy-item:hover {
+    text-decoration: underline;
+    border-radius: 5%;
+    /* color:#f4f4f4; */
+    /* background-color: hsl(130, 64%, 58%); */
+}
+
+.btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Если корзина пуста */
+.cart-section p {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+}

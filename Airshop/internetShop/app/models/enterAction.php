@@ -1,7 +1,9 @@
 <?php
 $errorMessage = '';  // Инициализируем переменную для сообщений об ошибке
-
 // Проверяем, была ли отправлена форма
+
+    $roleID = (int)$_COOKIE['RoleID'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Получаем данные из формы
     $login = trim($_POST['login'] ?? '');  // Очищаем от пробелов
@@ -23,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Создаем объект базы данных
         $database = new Database($host, $dbname, $username, $dbpassword);
+        $products = new TableforProducts($pdo);
 
         // Получаем объект PDO из класса Database
         $pdo = $database->getPDO();
@@ -40,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Если логин и пароль совпали, авторизуем пользователя
                 // Записываем данные в cookie
                 setcookie("user_id", $user['ID'], time() + 3600, "/");   // Кука для ID пользователя
-                setcookie("role_id", $user['RoleID'], time() + 3600, "/");  // Кука для роли пользователя
                 setcookie("login", $user['Login'], time() + 3600, "/");  // Кука для логина
 
                 // Перенаправляем на главную страницу (HomeIndex.php)
@@ -49,12 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 // Если логин и пароль не совпадают, остаемся на текущей странице и выводим ошибку
                 $errorMessage = "Неверный логин или пароль.";
+                header("Location: /Airshop/InternetShop/enter");
             }
         } catch (PDOException $e) {
             $errorMessage = "Ошибка при подключении к базе данных: " . $e->getMessage();
         }
     }
-    if (isset($errorMessage)) {
+    if(!isset($_COOKIE['RoleID']) && isset($errorMessage)) {
         header("Location: /Airshop/InternetShop/enter");
         exit();
     }
